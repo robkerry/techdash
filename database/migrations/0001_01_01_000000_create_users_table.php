@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -20,6 +21,10 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // Set User ID auto increment to start at 100126697
+        $tableName = Schema::getConnection()->getTablePrefix().'users';
+        DB::statement("ALTER TABLE `{$tableName}` AUTO_INCREMENT = 100126697");
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

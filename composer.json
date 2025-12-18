@@ -3,12 +3,22 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "laravel/fortify": "^1.33",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "mpociot/teamwork": "^10.0",
+        "predis/predis": "^3.3",
+        "spatie/laravel-one-time-passwords": "^1.0",
+        "spatie/laravel-passkeys": "^1.5",
+        "symfony/http-client": "^8.0",
+        "symfony/postmark-mailer": "^8.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -25,7 +35,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
