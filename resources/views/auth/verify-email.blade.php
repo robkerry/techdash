@@ -1,6 +1,6 @@
 <x-layouts.auth>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Verify your email address</h2>
+        <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-white">Verify your email address</h2>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">

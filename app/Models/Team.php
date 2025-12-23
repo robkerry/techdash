@@ -80,4 +80,12 @@ class Team extends TeamworkTeam
     {
         return $this->users()->count();
     }
+
+    /**
+     * Get all websites owned by this team.
+     */
+    public function websites(): HasMany
+    {
+        return $this->hasMany(Website::class);
+    }
 }

@@ -7,6 +7,8 @@
 
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 
+    <x-head />
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('scripts')
 </head>

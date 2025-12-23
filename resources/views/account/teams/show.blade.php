@@ -1,27 +1,24 @@
 <x-layouts.app>
     <x-navigation active="teams" />
 
-    <header class="relative bg-white shadow-sm">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
-                <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ html_entity_decode($team->name, ENT_QUOTES, 'UTF-8') }}</h1>
-                <div class="flex space-x-2">
-                    @if($isOwner)
-                        <a href="{{ route('account.teams.edit', $team) }}">
-                            <x-button variant="secondary" size="sm">
-                                Edit
-                            </x-button>
-                        </a>
-                    @endif
-                    <a href="{{ route('account.teams.index') }}">
-                        <x-button variant="ghost" size="sm">
-                            Back
+    <x-page-header title="{{ html_entity_decode($team->name, ENT_QUOTES, 'UTF-8') }}">
+        <x-slot name="actions">
+            <div class="flex space-x-2">
+                @if($isOwner)
+                    <a href="{{ route('account.teams.edit', $team) }}">
+                        <x-button variant="secondary" size="sm">
+                            Edit
                         </x-button>
                     </a>
-                </div>
+                @endif
+                <a href="{{ route('account.teams.index') }}">
+                    <x-button variant="ghost" size="sm">
+                        Back
+                    </x-button>
+                </a>
             </div>
-        </div>
-    </header>
+        </x-slot>
+    </x-page-header>
 
     <main>
         <div class="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:px-8">
@@ -46,6 +43,7 @@
                             @foreach($team->users as $member)
                                 <div class="flex items-center justify-between py-2 border-b border-gray-200 last:border-0">
                                     <div class="flex items-center gap-3">
+                                        <x-avatar :name="$member->name" size="sm" />
                                         <div>
                                             <p class="text-sm font-medium text-gray-900">{{ $member->name }}</p>
                                             <p class="text-sm text-gray-500">{{ $member->email }}</p>
@@ -138,13 +136,44 @@
 
                         <!-- Danger Zone -->
                         <x-card title="Danger Zone" subtitle="Permanently delete this team.">
-                            <form method="POST" action="{{ route('account.teams.destroy', $team) }}" onsubmit="return confirm('Are you sure you want to delete this team? This action cannot be undone.')">
-                                @csrf
-                                @method('DELETE')
-                                <x-button type="submit" variant="danger">
+                            @if($websiteCount > 0)
+                                <div class="mb-4 rounded-md bg-warning-50 p-4">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <svg class="h-5 w-5 text-warning-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-medium text-warning-800">
+                                                Cannot delete team with websites
+                                            </h3>
+                                            <div class="mt-2 text-sm text-warning-700">
+                                                <p>
+                                                    This team cannot be deleted because it has <strong>{{ $websiteCount }} {{ Str::plural('website', $websiteCount) }}</strong> assigned to it.
+                                                </p>
+                                                <p class="mt-2">
+                                                    To delete this team, you must first delete or reassign all websites. 
+                                                    <a href="{{ route('websites.index') }}" class="font-medium underline hover:text-warning-900">
+                                                        Manage websites →
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <x-button type="button" variant="danger" disabled>
                                     Delete Team
                                 </x-button>
-                            </form>
+                            @else
+                                <form method="POST" action="{{ route('account.teams.destroy', $team) }}" onsubmit="return confirm('Are you sure you want to delete this team? This action cannot be undone.')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <x-button type="submit" variant="danger">
+                                        Delete Team
+                                    </x-button>
+                                </form>
+                            @endif
                         </x-card>
                     @endif
                 </div>

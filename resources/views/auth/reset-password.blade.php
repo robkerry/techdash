@@ -1,6 +1,6 @@
 <x-layouts.auth>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Reset your password</h2>
+        <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-white">Reset your password</h2>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -73,8 +73,8 @@
             </form>
         </div>
 
-        <p class="mt-10 text-center text-sm/6 text-gray-500">
-            <a href="{{ route('login') }}" class="font-semibold text-primary-600 hover:text-primary-500">Back to sign in</a>
+        <p class="mt-10 text-center text-sm/6 text-gray-300">
+            <a href="{{ route('login') }}" class="font-semibold text-primary-400 hover:text-primary-300">Back to sign in</a>
         </p>
     </div>
 </x-layouts.auth>

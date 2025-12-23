@@ -1,7 +1,7 @@
 <x-layouts.auth title="Two Factor Challenge">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Two Factor Authentication</h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
+        <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-white">Two Factor Authentication</h2>
+        <p class="mt-2 text-center text-sm text-gray-300">
             Please confirm access to your account by entering the authentication code provided by your authenticator application.
         </p>
     </div>

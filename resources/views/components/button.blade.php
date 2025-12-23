@@ -14,7 +14,7 @@
         'danger' => 'rounded-md bg-error-600 text-white shadow-xs hover:bg-error-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-error-500',
         'success' => 'rounded-md bg-success-600 text-white shadow-xs hover:bg-success-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-success-500',
         'warning' => 'rounded-md bg-warning-600 text-white shadow-xs hover:bg-warning-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warning-500',
-        'ghost' => 'rounded-md bg-transparent text-gray-700 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500',
+        'ghost' => 'rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500',
     ];
     
     $sizeClasses = [

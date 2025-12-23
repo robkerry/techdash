@@ -1,11 +1,7 @@
 <x-layouts.app>
     <x-navigation active="profile" />
 
-    <header class="relative bg-white shadow-sm">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Account Settings</h1>
-        </div>
-    </header>
+    <x-page-header title="Account Settings" />
 
     <div class="bg-white">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -113,6 +113,19 @@ class TeamController extends Controller
             ]);
         }
 
+        // Prevent deleting if team has websites
+        $websiteCount = $team->websites()->count();
+        if ($websiteCount > 0) {
+            $websiteWord = $websiteCount === 1 ? 'website' : 'websites';
+            throw ValidationException::withMessages([
+                'team' => [
+                    "Cannot delete this team because it has {$websiteCount} {$websiteWord} assigned to it. " .
+                    "Please delete or reassign all websites before deleting the team. " .
+                    "Visit the Websites page to manage your websites."
+                ],
+            ]);
+        }
+
         // If this is the current team, switch to another team
         if (auth()->user()->current_team_id === $team->id) {
             $otherTeam = auth()->user()->teams()->where('id', '!=', $team->id)->first();
@@ -142,13 +155,14 @@ class TeamController extends Controller
             abort(403, 'You are not a member of this team.');
         }
 
-        $team->load(['users', 'owner']);
+        $team->load(['users', 'owner', 'websites']);
         $invites = \Mpociot\Teamwork\TeamInvite::where('team_id', $team->id)->get();
 
         return view('account.teams.show', [
             'team' => $team,
             'invites' => $invites,
             'isOwner' => $team->isOwnedBy(auth()->user()),
+            'websiteCount' => $team->websites()->count(),
         ]);
     }
 
@@ -165,8 +179,11 @@ class TeamController extends Controller
         auth()->user()->current_team_id = $team->id;
         auth()->user()->save();
 
-        return redirect()->route('account.teams.index')
-            ->with('status', 'Switched to ' . $team->name . '.');
+        // Redirect back to the current page if provided, otherwise to teams index
+        $redirect = $request->input('redirect', route('account.teams.index'));
+
+        return redirect($redirect)
+            ->with('status', 'Switched to ' . html_entity_decode($team->name, ENT_QUOTES, 'UTF-8') . '.');
     }
 }
 

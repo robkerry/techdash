@@ -1,6 +1,6 @@
 <x-layouts.auth>
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+        <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -91,7 +91,7 @@
             <div>
                 <div class="mt-10 flex items-center gap-x-6">
                     <div class="w-full flex-1 border-t border-gray-200"></div>
-                    <p class="text-sm/6 font-medium text-nowrap text-gray-900">Or continue with</p>
+                    <p class="text-sm/6 font-medium text-nowrap text-gray-300">Or continue with</p>
                     <div class="w-full flex-1 border-t border-gray-200"></div>
                 </div>
 
@@ -116,9 +116,9 @@
             </div>
         </div>
 
-        <p class="mt-10 text-center text-sm/6 text-gray-500">
+        <p class="mt-10 text-center text-sm/6 text-gray-300">
             Not a member?
-            <a href="{{ route('register') }}" class="font-semibold text-primary-600 hover:text-primary-500">Start a 14 day free trial</a>
+            <a href="{{ route('register') }}" class="font-semibold text-primary-400 hover:text-primary-300">Start a 14 day free trial</a>
         </p>
     </div>
 </x-layouts.auth>

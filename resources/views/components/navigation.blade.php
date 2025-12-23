@@ -1,5 +1,5 @@
 @props([
-    'active' => 'dashboard', // dashboard, profile, teams
+    'active' => 'dashboard', // dashboard, profile, teams, websites
 ])
 
 <nav class="bg-gray-800" x-data="{ mobileMenuOpen: false, profileMenuOpen: false }">
@@ -7,8 +7,8 @@
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <div class="shrink-0">
-                    <a href="{{ route('dashboard') }}" class="text-xl font-semibold text-white">
-                        {{ config('app.name') }}
+                    <a href="{{ route('dashboard') }}">
+                        <img src="{{ asset('images/techdash-v2-logo-big.webp') }}" alt="{{ config('app.name') }}" class="h-6 w-auto">
                     </a>
                 </div>
                 <div class="hidden md:block">
@@ -21,6 +21,9 @@
                         </a>
                         <a href="{{ route('account.teams.index') }}" class="rounded-md px-3 py-2 text-sm font-medium {{ $active === 'teams' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                             Teams
+                        </a>
+                        <a href="{{ route('websites.index') }}" class="rounded-md px-3 py-2 text-sm font-medium {{ $active === 'websites' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
+                            Websites
                         </a>
                     </div>
                 </div>
@@ -41,9 +44,7 @@
                         <button @click="open = !open" @click.away="open = false" class="relative flex max-w-xs items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 cursor-pointer">
                             <span class="absolute -inset-1.5"></span>
                             <span class="sr-only">Open user menu</span>
-                            <div class="size-8 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-medium outline -outline-offset-1 outline-white/10">
-                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                            </div>
+                            <x-avatar :name="auth()->user()->name" size="sm" />
                         </button>
 
                         <div x-show="open" 
@@ -101,13 +102,14 @@
             <a href="{{ route('account.teams.index') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ $active === 'teams' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                 Teams
             </a>
+            <a href="{{ route('websites.index') }}" class="block rounded-md px-3 py-2 text-base font-medium {{ $active === 'websites' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
+                Websites
+            </a>
         </div>
         <div class="border-t border-white/10 pt-4 pb-3">
             <div class="flex items-center px-5">
                 <div class="shrink-0">
-                    <div class="size-10 rounded-full bg-primary-600 flex items-center justify-center text-white text-sm font-medium outline -outline-offset-1 outline-white/10">
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                    </div>
+                    <x-avatar :name="auth()->user()->name" size="md" />
                 </div>
                 <div class="ml-3">
                     <div class="text-base/5 font-medium text-white">{{ auth()->user()->name }}</div>

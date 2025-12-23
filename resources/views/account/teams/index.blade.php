@@ -1,18 +1,15 @@
 <x-layouts.app>
     <x-navigation active="teams" />
 
-    <header class="relative bg-white shadow-sm">
-        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
-                <h1 class="text-3xl font-bold tracking-tight text-gray-900">Account Settings</h1>
-                <a href="{{ route('account.teams.create') }}">
-                    <x-button variant="primary">
-                        Create Team
-                    </x-button>
-                </a>
-            </div>
-        </div>
-    </header>
+    <x-page-header title="Account Settings">
+        <x-slot name="actions">
+            <a href="{{ route('account.teams.create') }}">
+                <x-button variant="primary">
+                    Create Team
+                </x-button>
+            </a>
+        </x-slot>
+    </x-page-header>
 
     <div class="bg-white">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -49,8 +46,8 @@
                             </div>
 
                             <div class="mt-4 flex space-x-2">
-                                <a href="{{ route('account.teams.show', $team) }}" class="flex-1">
-                                    <x-button variant="primary" size="sm" fullWidth>
+                                <a href="{{ route('account.teams.show', $team) }}">
+                                    <x-button variant="primary" size="sm">
                                         View
                                     </x-button>
                                 </a>
@@ -64,7 +61,7 @@
                                 @if($currentTeam && $currentTeam->id !== $team->id)
                                     <form method="POST" action="{{ route('account.teams.switch', $team) }}" class="inline">
                                         @csrf
-                                        <x-button type="submit" variant="ghost" size="sm">
+                                        <x-button type="submit" variant="secondary" size="sm">
                                             Switch
                                         </x-button>
                                     </form>

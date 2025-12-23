@@ -9,8 +9,36 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
+// Team Invitation acceptance routes (accessible without authentication)
+Route::prefix('account')->name('account.')->group(function () {
+    Route::get('teams/invitations/accept/{token}', [\App\Http\Controllers\Account\TeamInvitationController::class, 'accept'])->name('teams.invitations.accept');
+    Route::get('teams/invitations/deny/{token}', [\App\Http\Controllers\Account\TeamInvitationController::class, 'deny'])->name('teams.invitations.deny');
+});
+
+// Profile completion routes (must be before EnsureProfileComplete middleware)
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::prefix('account')->name('account.')->group(function () {
+        Route::get('/profile/complete', [\App\Http\Controllers\ProfileController::class, 'complete'])->name('profile.complete');
+        Route::post('/profile/complete', [\App\Http\Controllers\ProfileController::class, 'completeStore'])->name('profile.complete.store');
+    });
+});
+
+Route::middleware(['auth', 'verified', \App\Http\Middleware\EnsureProfileComplete::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Websites
+    Route::resource('websites', \App\Http\Controllers\WebsiteController::class);
+    
+    // Google Search Console integration
+    Route::get('websites/gsc/connect', [\App\Http\Controllers\WebsiteController::class, 'connectGsc'])->name('websites.gsc.connect');
+    Route::get('websites/gsc/callback', [\App\Http\Controllers\WebsiteController::class, 'gscCallback'])->name('websites.gsc.callback');
+    Route::get('websites/gsc/select', [\App\Http\Controllers\WebsiteController::class, 'selectGscProperties'])->name('websites.gsc.select');
+    Route::post('websites/gsc/store', [\App\Http\Controllers\WebsiteController::class, 'storeGscProperties'])->name('websites.gsc.store');
+    
+    // Avatar showcase (for design system reference)
+    Route::get('/avatar-showcase', function () {
+        return view('avatar-showcase');
+    })->name('avatar-showcase');
 
     // Account routes
     Route::prefix('account')->name('account.')->group(function () {
